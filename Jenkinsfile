@@ -15,6 +15,7 @@ pipeline {
         }
       }
     stage('compile job') //validate and compile
+    {
       steps {
           withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
           sh 'mvn compile'
