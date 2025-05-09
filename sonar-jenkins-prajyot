@@ -1,0 +1,42 @@
+pipeline {
+  agent any
+  stages {
+    stage('scm checkout') {
+      steps {
+        git branch: 'master', url: 'https://github.com/prajyotka/maven-project.git'
+      }
+    }
+    stage('validate job') //valiadte the code
+    {
+      steps {
+          withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
+          sh 'mvn validate'
+          }
+        }
+      }
+    stage('compile job') //compile the code
+    {
+      steps {
+          withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
+          sh 'mvn compile'
+          }
+        }
+      }
+    stage('test job') //test the code
+    {
+      steps {
+          withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
+          sh 'mvn test'
+          }
+        }
+      }
+    stage('scan and package code') //scan with sonar and package with maven
+    {
+        steps{
+            withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
+                
+
+        }
+    }
+  }
+}
