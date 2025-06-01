@@ -23,7 +23,7 @@ pipeline {
     stage('push docker image') //this stage will push image to docker hub
     {
       steps {
-        withDockerRegistry(credentialsId: 'dockerHub') {
+        withDockerRegistry(credentialsId: 'dockerHub', url: 'https://index.docker.io/v1/') {
         sh 'docker push -t prajyotka/prajyotka:latest'
           }
       }
