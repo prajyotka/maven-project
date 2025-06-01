@@ -14,13 +14,19 @@ pipeline {
           }
         }
       }
-    stage('Deploy Code') //deploy code on web server
+    stage('create docker image') //this stage will create docker image
     {
       steps {
-          sshagent(['DEV_CICD']) {
-            sh 'scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@172.31.0.16:/usr/share/tomcat/webapps'
+            sh 'docker build -t prajyotka/prajyotka:latest .'
           }
         }
+    stage('push docker image') //this stage will push image to docker hub
+    {
+      steps {
+        withDockerRegistry(credentialsId: 'dockerHub') {
+        sh 'docker push -t prajyotka/prajyotka:latest'
+          }
       }
+    }
   }
 }
