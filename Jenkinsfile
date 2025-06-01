@@ -24,7 +24,7 @@ pipeline {
     {
       steps {
         withDockerRegistry(credentialsId: 'dockerHub', url: 'https://index.docker.io/v1/') {
-        sh 'docker push -t prajyotka/prajyotka:latest'
+        sh 'docker push prajyotka/prajyotka:latest'
           }
       }
     }
